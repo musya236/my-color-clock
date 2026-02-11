@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>デジタル時計</title>
+    
+    <!-- CSS: 見た目を整える -->
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f2f5;
+            transition: background-color 0.5s ease; /* 背景変化を滑らかに */
+        }
+
+        .card {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        #clock {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #007bff;
+            margin: 20px 0;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HTML: 構造を作る -->
+    <div class="card">
+        <h1>現在の時刻</h1>
+        <div id="clock">00:00:00</div>
+        <p>下のボタンを押すと背景色が変わります。</p>
+        <button id="colorBtn">背景色を変える</button>
+    </div>
+
+    <!-- JavaScript: 動きをつける -->
+    <script>
+        // 1. 時計の機能を実装
+        function updateClock() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            
+            const timeString = `${hours}:${minutes}:${seconds}`;
+            document.getElementById('clock').textContent = timeString;
+        }
+
+        // 1秒ごとに時計を更新
+        setInterval(updateClock, 1000);
+        updateClock(); // ページ読み込み時に即実行
+
+        // 2. 背景色を変える機能を実装
+        const btn = document.getElementById('colorBtn');
+        btn.addEventListener('click', () => {
+            // ランダムな色を生成
+            const randomColor = `hsl(${Math.random() * 360}, 70%, 80%)`;
+            document.body.style.backgroundColor = randomColor;
+        });
+    </script>
+</body>
+</html>
